@@ -18,6 +18,7 @@
 <svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
   <symbol id="i-check" viewBox="0 0 20 20"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M4 20c0-8 5-14 16-15 0 10-5 15-12 15H4z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M6.5 17.5C10 14 13 12 17 10.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6.5 3.4h11a1.4 1.4 0 011.4 1.4v15.7l-6.9-5-6.9 5V4.8a1.4 1.4 0 011.4-1.4z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M9 7.2h5.2M9 9.6h2.6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></symbol>
 </svg>
 
 <div class="promo-banner">
@@ -56,7 +57,7 @@
 
 <main id="main">
   <section class="hero">
-    <div class="container split split--center">
+    <div class="container split split--center hero--form-first">
       <div>
         <span class="code-pill">EST. 2009</span>
         <h1 class="mt-24">Tooth replacement, studied and measured.</h1>
@@ -69,13 +70,34 @@
           <a class="btn btn--ghost" href="tel:+15555550142">(555) 555-0142</a>
         </div>
       </div>
-      <div class="spec-panel">
-        <h2>Practice</h2>
-        <dl>
-          <div><dt>Location</dt><dd>1400 Harbor Boulevard, Suite 210 · Fort Lauderdale, FL</dd></div>
-          <div><dt>Hours</dt><dd>Mon–Thu 08:00–17:00 · Fri 08:00–14:00</dd></div>
-          <div><dt>Scope</dt><dd>Implants · extractions · grafting · sedation</dd></div>
-        </dl>
+      <div class="form-card">
+        <h3>Book a free consultation</h3>
+        <form data-consult-form>
+          <div class="field">
+            <label for="home-name">Full name</label>
+            <input id="home-name" name="name" type="text" autocomplete="name" required>
+          </div>
+          <div class="grid grid--2" style="gap:0 var(--spacing-16)">
+            <div class="field">
+              <label for="home-phone">Phone</label>
+              <input id="home-phone" name="phone" type="tel" autocomplete="tel" required>
+            </div>
+            <div class="field">
+              <label for="home-email">Email</label>
+              <input id="home-email" name="email" type="email" autocomplete="email" required>
+            </div>
+          </div>
+          <div class="field field--inline">
+            <input id="home-consent" name="consent" type="checkbox" required>
+            <label for="home-consent">I agree to be contacted about this request. Please do not include sensitive medical details in this form.</label>
+          </div>
+          <button class="btn btn--primary btn--block" type="submit">
+            <svg width="16" height="16" aria-hidden="true"><use href="#i-bookmark"></use></svg>
+            Book Your New Smile
+          </button>
+          <p class="form-status" data-form-status tabindex="-1" role="status"></p>
+          <p class="form-note">A full treatment menu and written estimate follow at your visit — this just reserves the time.</p>
+        </form>
       </div>
     </div>
   </section>

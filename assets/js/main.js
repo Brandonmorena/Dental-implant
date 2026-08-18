@@ -137,8 +137,8 @@
   }
 
   /* ---------- Promo modal ----------
-     Free-consultation popup, shown once per session a beat after the page
-     settles. Reuses the sessionStorage-dismiss pattern already used for the
+     Free-consultation popup, shown once per session 3 seconds after the page
+     loads. Reuses the sessionStorage-dismiss pattern already used for the
      CTA dock, so a visitor who closes it does not see it again this visit. */
   var promoModal = document.querySelector('[data-promo-modal]');
 
@@ -211,7 +211,7 @@
     }
 
     if (!promoAlreadyShown) {
-      window.setTimeout(openPromoModal, 1400);
+      window.setTimeout(openPromoModal, 3000);
     }
   }
 

@@ -197,6 +197,15 @@ img, svg { max-width: 100%; }
 .split--center { align-items: center; }
 @media (max-width: 880px) { .split, .split--even { grid-template-columns: 1fr; } }
 
+/* On the homepage hero, the booking form is meant to be the first thing a
+   visitor sees. The grid keeps it visually second (right of the headline)
+   at desktop widths, where both sit in the same viewport anyway — but once
+   the layout stacks to one column, that DOM order would push the form below
+   the fold. Reorder it back to the top only at that breakpoint. */
+@media (max-width: 880px) {
+  .hero--form-first .form-card { order: -1; margin-bottom: var(--spacing-32); }
+}
+
 .stack-16 > * + * { margin-top: var(--spacing-16); }
 .mt-24 { margin-top: var(--spacing-24); }
 .mt-32 { margin-top: var(--spacing-32); }
