@@ -59,6 +59,44 @@ python3 -m http.server 8000
 # then open http://localhost:8000/services/dental-implants/
 ```
 
+## Hosting and analytics
+
+The repository stores the site; it does not serve it. To put it on the web,
+enable **GitHub Pages**: repository *Settings → Pages → Build and deployment →
+Deploy from a branch*, pick the branch and `/ (root)`. The repo is public, so
+Pages is free. The site then lives at:
+
+```
+https://brandonmorena.github.io/Dental-implant/services/dental-implants/
+```
+
+Every path in the site is relative, so it works unchanged under that
+`/Dental-implant/` subpath.
+
+### Google tag
+
+`assets/js/analytics.js` holds the Google Analytics 4 loader and is included on
+every page. Set `MEASUREMENT_ID` to your own `G-` ID (GA4 Admin → Data streams →
+your web stream). While the placeholder is in place the file is completely
+inert — no request, no globals, no console noise.
+
+Beyond pageviews it records two conversions:
+
+| Event | Fires when |
+|-------|-----------|
+| `phone_call_click` | A `tel:` link is clicked, tagged `sticky_cta` or `page` |
+| `generate_lead` | The consultation form is submitted, with the treatment selected |
+
+No form field values are sent — only that a submission happened, and which
+treatment the visitor picked from the dropdown.
+
+To use Google Tag Manager instead, swap the `gtag/js` URL for
+`gtm.js?id=GTM-XXXXXXX` and remove the two `gtag()` configuration calls.
+
+Note that the tag cannot load inside a published Claude artifact — artifacts run
+under a Content Security Policy that blocks external hosts other than Google
+Fonts. It works normally on GitHub Pages or any ordinary host.
+
 ## Before publishing
 
 This is a template. Replace:
