@@ -170,9 +170,11 @@ img, svg { max-width: 100%; }
 .section { padding-block: clamp(var(--spacing-56), 8vw, var(--spacing-96)); }
 .section--stone { background: var(--surface-card-surface); }
 .section--dark { background: var(--surface-dark-section); color: var(--color-snow-white); }
-.section--dark h1, .section--dark h2, .section--dark h3, .section--dark h4 { color: var(--color-snow-white); }
-.section--dark .eyebrow { color: rgba(252, 252, 247, .65); }
-.section--dark .muted { color: rgba(252, 252, 247, .7); }
+.section--dark, .hero { color: var(--color-snow-white); }
+.section--dark h1, .section--dark h2, .section--dark h3, .section--dark h4,
+.hero h1, .hero h2, .hero h3, .hero h4 { color: var(--color-snow-white); }
+.section--dark .eyebrow, .hero .eyebrow { color: rgba(252, 252, 247, .65); }
+.section--dark .muted, .hero .muted { color: rgba(252, 252, 247, .7); }
 
 .section__intro { max-width: 46rem; }
 .section__intro p:last-child { margin-bottom: 0; }
@@ -224,6 +226,24 @@ img, svg { max-width: 100%; }
   color: var(--color-snow-white);
 }
 .btn--primary:hover { background: #142c0e; border-color: #142c0e; color: var(--color-snow-white); }
+/* On Forest Depths surfaces the filled button inverts so it stays legible */
+.section--dark .btn--primary, .hero .btn--primary {
+  background: var(--color-snow-white);
+  border-color: var(--color-snow-white);
+  color: var(--color-forest-depths);
+}
+.section--dark .btn--primary:hover, .hero .btn--primary:hover {
+  background: var(--color-warm-stone);
+  border-color: var(--color-warm-stone);
+  color: var(--color-forest-depths);
+}
+/* …but a light card sitting on a dark section keeps the standard filled style */
+.form-card .btn--primary {
+  background: var(--color-forest-depths);
+  border-color: var(--color-forest-depths);
+  color: var(--color-snow-white);
+}
+.form-card .btn--primary:hover { background: #142c0e; border-color: #142c0e; }
 /* Ghost — on dark surfaces and imagery */
 .btn--ghost {
   background: transparent;
@@ -252,7 +272,7 @@ img, svg { max-width: 100%; }
   font-weight: var(--font-weight-regular);
 }
 .link-arrow::after { content: " →"; }
-.section--dark .link-arrow { color: var(--color-snow-white); }
+.section--dark .link-arrow, .hero .link-arrow { color: var(--color-snow-white); }
 
 /* ---------- Badges & pills ---------- */
 .badge {
@@ -285,7 +305,7 @@ img, svg { max-width: 100%; }
   text-transform: uppercase;
   color: var(--color-forest-depths);
 }
-.section--dark .code-pill { border-color: var(--color-snow-white); color: var(--color-snow-white); }
+.section--dark .code-pill, .hero .code-pill { border-color: var(--color-snow-white); color: var(--color-snow-white); }
 
 /* ---------- Header ---------- */
 .promo-banner {
@@ -483,7 +503,7 @@ img, svg { max-width: 100%; }
 .checklist { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--spacing-16); }
 .checklist li { display: flex; gap: var(--spacing-8); align-items: flex-start; }
 .checklist svg { flex: none; margin-top: 4px; color: var(--color-sage-moss); }
-.section--dark .checklist svg { color: var(--color-lime-pulse); }
+.section--dark .checklist svg, .hero .checklist svg { color: var(--color-lime-pulse); }
 
 /* ---------- Figure ---------- */
 .figure { margin: 0; }
