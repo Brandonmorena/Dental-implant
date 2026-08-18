@@ -136,6 +136,85 @@
     updateDock();
   }
 
+  /* ---------- Promo modal ----------
+     Free-consultation popup, shown once per session a beat after the page
+     settles. Reuses the sessionStorage-dismiss pattern already used for the
+     CTA dock, so a visitor who closes it does not see it again this visit. */
+  var promoModal = document.querySelector('[data-promo-modal]');
+
+  if (promoModal) {
+    var promoAlreadyShown = false;
+    try {
+      promoAlreadyShown = window.sessionStorage.getItem('promoModalShown') === '1';
+    } catch (e) {
+      /* private mode or storage disabled — falls back to once per page load */
+    }
+
+    var promoLastFocused = null;
+
+    function onPromoKeydown(event) {
+      if (event.key === 'Escape') {
+        closePromoModal();
+        return;
+      }
+      if (event.key !== 'Tab') return;
+      var focusable = promoModal.querySelectorAll('a[href], button:not([disabled])');
+      if (!focusable.length) return;
+      var first = focusable[0];
+      var last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
+
+    function openPromoModal() {
+      promoLastFocused = document.activeElement;
+      promoModal.classList.add('is-open');
+      /* The close button is still visibility:hidden in this same tick, and
+         one requestAnimationFrame is not reliably enough of a wait either —
+         the transition needs a full frame to actually commit before an
+         element inside it becomes focusable. A nested rAF (wait for the
+         frame after next) is the standard way to defer past that. */
+      window.requestAnimationFrame(function () {
+        window.requestAnimationFrame(function () {
+          var closeBtn = promoModal.querySelector('.promo-modal__close');
+          if (closeBtn) closeBtn.focus();
+        });
+      });
+      document.addEventListener('keydown', onPromoKeydown);
+    }
+
+    function closePromoModal() {
+      promoModal.classList.remove('is-open');
+      document.removeEventListener('keydown', onPromoKeydown);
+      if (promoLastFocused && typeof promoLastFocused.focus === 'function') {
+        promoLastFocused.focus();
+      }
+      try {
+        window.sessionStorage.setItem('promoModalShown', '1');
+      } catch (e) {
+        /* nothing to persist to — it may show again on the next page load */
+      }
+    }
+
+    promoModal.addEventListener('click', function (event) {
+      if (event.target === promoModal) closePromoModal();
+    });
+
+    var promoDismissers = promoModal.querySelectorAll('[data-promo-dismiss]');
+    for (var i = 0; i < promoDismissers.length; i++) {
+      promoDismissers[i].addEventListener('click', closePromoModal);
+    }
+
+    if (!promoAlreadyShown) {
+      window.setTimeout(openPromoModal, 1400);
+    }
+  }
+
   /* ---------- Footer year ---------- */
   var year = document.querySelector('[data-year]');
   if (year) year.textContent = String(new Date().getFullYear());

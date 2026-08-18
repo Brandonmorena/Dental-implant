@@ -787,6 +787,126 @@ tbody th { font-weight: var(--font-weight-medium); color: var(--color-forest-dep
   .cta-dock .btn { flex: 1; }
 }
 
+/* ---------- Promo modal ----------
+   Free-consultation popup, shown once per session a beat after the page
+   settles rather than the instant it loads. Forest Depths surface with a
+   matching translucent scrim, so it reads as this system's own dark band
+   rather than a generic black overlay. No shadow: separation comes from the
+   scrim behind it, same rule the rest of the page follows. */
+.promo-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-24);
+  background: rgba(28, 58, 19, .6);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .22s ease, visibility .22s;
+}
+.promo-modal.is-open { opacity: 1; visibility: visible; }
+
+.promo-modal__dialog {
+  position: relative;
+  width: 100%;
+  max-width: 30rem;
+  max-height: calc(100vh - var(--spacing-48));
+  overflow-y: auto;
+  background: var(--surface-dark-section);
+  color: var(--color-snow-white);
+  border-radius: var(--radius-large-cards);
+  padding: var(--spacing-40) var(--spacing-32) var(--spacing-32);
+  transform: translateY(8px);
+  transition: transform .22s ease;
+}
+.promo-modal.is-open .promo-modal__dialog { transform: translateY(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  .promo-modal, .promo-modal__dialog { transition: none; }
+}
+
+.promo-modal__close {
+  position: absolute;
+  top: var(--spacing-16);
+  right: var(--spacing-16);
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  background: transparent;
+  border: 1.5px solid rgba(252, 252, 247, .35);
+  border-radius: var(--radius-full);
+  color: var(--color-snow-white);
+  cursor: pointer;
+}
+.promo-modal__close:hover { background: rgba(252, 252, 247, .12); }
+
+.promo-modal__badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px var(--spacing-8);
+  border-radius: var(--radius-badges);
+  background: var(--color-lime-pulse);
+  color: var(--color-forest-depths);
+  font-family: var(--font-seed-sans-mono);
+  font-size: var(--text-label);
+  letter-spacing: 0.015em;
+  text-transform: uppercase;
+  font-weight: var(--font-weight-medium);
+  margin-bottom: var(--spacing-24);
+}
+
+.promo-modal__dialog h2 {
+  color: var(--color-snow-white);
+  font-size: var(--text-heading-lg);
+  margin-bottom: var(--spacing-16);
+  padding-right: var(--spacing-32);
+}
+.promo-modal__body {
+  color: rgba(252, 252, 247, .82);
+  font-size: var(--text-body-sm);
+  line-height: 1.55;
+  margin-bottom: var(--spacing-24);
+}
+
+.promo-modal__features {
+  list-style: none;
+  margin: 0 0 var(--spacing-32);
+  padding: 0;
+  display: grid;
+  gap: var(--spacing-8);
+}
+.promo-modal__features li {
+  display: flex;
+  gap: var(--spacing-8);
+  align-items: flex-start;
+  font-size: var(--text-caption);
+  color: rgba(252, 252, 247, .85);
+}
+.promo-modal__features svg { flex: none; margin-top: 3px; color: var(--color-lime-pulse); }
+
+.promo-modal__actions { display: grid; gap: var(--spacing-16); }
+/* The primary pill inverts to Snow White on this dark surface, same rule
+   already used for the hero and other dark sections. */
+.promo-modal .btn--primary {
+  background: var(--color-snow-white);
+  border-color: var(--color-snow-white);
+  color: var(--color-forest-depths);
+}
+.promo-modal .btn--primary:hover { background: var(--color-warm-stone); border-color: var(--color-warm-stone); }
+.promo-modal .link-arrow { color: var(--color-snow-white); text-align: center; }
+
+.promo-modal__fine-print {
+  margin: var(--spacing-24) 0 0;
+  font-family: var(--font-seed-sans-mono);
+  font-size: var(--text-label);
+  line-height: var(--leading-label);
+  letter-spacing: 0.015em;
+  color: rgba(252, 252, 247, .55);
+}
+
 /* ---------- Footer ---------- */
 .site-footer {
   background: var(--surface-dark-section);

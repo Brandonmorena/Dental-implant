@@ -838,6 +838,41 @@
   </button>
 </div>
 
+<!-- Free-consultation popup. Shows once per session, a beat after the page
+     settles; the low-key booking dock covers the same offer once this is
+     dismissed and the reader has scrolled into the page body. -->
+<div class="promo-modal" data-promo-modal role="dialog" aria-modal="true" aria-labelledby="promo-modal-title">
+  <div class="promo-modal__dialog">
+    <button class="promo-modal__close" type="button" data-promo-dismiss aria-label="Close">
+      <svg width="14" height="14" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 2l8 8M10 2l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+
+    <span class="promo-modal__badge">Free Consultation &middot; Fort Lauderdale</span>
+    <h2 id="promo-modal-title">Your new smile starts with one free scan.</h2>
+    <p class="promo-modal__body">
+      A free consultation includes a 3D CBCT scan, a straight answer on whether
+      implants are right for you, and a written estimate — with no obligation
+      to schedule anything.
+    </p>
+
+    <ul class="promo-modal__features">
+      <li><svg width="16" height="16" aria-hidden="true"><use href="#i-check"></use></svg><span>3D CBCT scan included</span></li>
+      <li><svg width="16" height="16" aria-hidden="true"><use href="#i-check"></use></svg><span>Written estimate, no obligation</span></li>
+      <li><svg width="16" height="16" aria-hidden="true"><use href="#i-check"></use></svg><span>Same-week appointments in most cases</span></li>
+    </ul>
+
+    <div class="promo-modal__actions">
+      <a class="btn btn--primary btn--block" href="#consult" data-promo-dismiss>Book Your New Smile</a>
+      <a class="link-arrow" href="#options" data-promo-dismiss>See all treatment options</a>
+    </div>
+
+    <p class="promo-modal__fine-print">
+      Consultation and 3D scan are free. Treatment costs are confirmed in
+      writing after your scan.
+    </p>
+  </div>
+</div>
+
 <script src="../../assets/js/main.js" defer></script>
 
 <script type="application/ld+json">
