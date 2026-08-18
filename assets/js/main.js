@@ -72,6 +72,70 @@
     });
   }
 
+  /* ---------- Persistent CTA dock ----------
+     Visible only in the middle of the page: after the hero has scrolled away,
+     and not while the booking form is on screen. Dismissal lasts the session. */
+  var dock = document.querySelector('[data-cta-dock]');
+
+  if (dock) {
+    var hero = document.querySelector('.hero');
+    var consult = document.getElementById('consult');
+    var pastHero = false;
+    var atConsult = false;
+    var dismissed = false;
+
+    try {
+      dismissed = window.sessionStorage.getItem('ctaDockDismissed') === '1';
+    } catch (e) {
+      /* private mode or storage disabled — treat as not dismissed */
+    }
+
+    function updateDock() {
+      dock.classList.toggle('is-visible', !dismissed && pastHero && !atConsult);
+    }
+
+    if ('IntersectionObserver' in window) {
+      if (hero) {
+        new IntersectionObserver(function (entries) {
+          pastHero = !entries[0].isIntersecting;
+          updateDock();
+        }, { threshold: 0 }).observe(hero);
+      } else {
+        pastHero = true;
+      }
+
+      if (consult) {
+        new IntersectionObserver(function (entries) {
+          atConsult = entries[0].isIntersecting;
+          updateDock();
+        }, { threshold: 0 }).observe(consult);
+      }
+    } else {
+      // Fallback: show past one viewport, hide near the end of the page.
+      window.addEventListener('scroll', function () {
+        var y = window.pageYOffset;
+        pastHero = y > window.innerHeight;
+        atConsult = consult ? y + window.innerHeight > consult.offsetTop : false;
+        updateDock();
+      });
+    }
+
+    var dismiss = dock.querySelector('[data-cta-dismiss]');
+    if (dismiss) {
+      dismiss.addEventListener('click', function () {
+        dismissed = true;
+        updateDock();
+        try {
+          window.sessionStorage.setItem('ctaDockDismissed', '1');
+        } catch (e) {
+          /* nothing to persist to — it stays hidden for this page view */
+        }
+      });
+    }
+
+    updateDock();
+  }
+
   /* ---------- Footer year ---------- */
   var year = document.querySelector('[data-year]');
   if (year) year.textContent = String(new Date().getFullYear());

@@ -712,6 +712,81 @@ tbody th { font-weight: var(--font-weight-medium); color: var(--color-forest-dep
 }
 .form-status:empty { display: none; }
 
+/* ---------- Persistent CTA dock ----------
+   Appears once the hero is behind you, steps aside when the booking form is
+   on screen, and can be dismissed for the session. Shadowless per the system:
+   separation comes from the 1.5px Forest Depths outline, which holds on both
+   the Snow White and Forest Depths grounds it floats over. */
+.cta-dock {
+  position: fixed;
+  z-index: 90;
+  left: 50%;
+  bottom: calc(var(--spacing-24) + env(safe-area-inset-bottom, 0px));
+  transform: translateX(-50%) translateY(12px);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-16);
+  max-width: calc(100vw - var(--spacing-32));
+  padding: var(--spacing-8) var(--spacing-8) var(--spacing-8) var(--spacing-24);
+  background: var(--color-snow-white);
+  border: 1.5px solid var(--color-forest-depths);
+  border-radius: var(--radius-buttons);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .24s ease, transform .24s ease, visibility .24s;
+}
+.cta-dock.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+.cta-dock__label {
+  font-family: var(--font-seed-sans-mono);
+  font-size: var(--text-label);
+  line-height: var(--leading-label);
+  letter-spacing: 0.015em;
+  text-transform: uppercase;
+  color: var(--color-pewter);
+  white-space: nowrap;
+}
+.cta-dock__call {
+  color: var(--color-forest-depths);
+  text-decoration: none;
+  font-size: var(--text-caption);
+  white-space: nowrap;
+}
+.cta-dock__call:hover { text-decoration: underline; text-underline-offset: 3px; }
+.cta-dock .btn { padding: 10px var(--spacing-24); }
+.cta-dock__dismiss {
+  flex: none;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  margin-right: 2px;
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-full);
+  color: var(--color-pewter);
+  cursor: pointer;
+  line-height: 1;
+}
+.cta-dock__dismiss:hover { background: var(--color-warm-stone); color: var(--color-forest-depths); }
+
+@media (max-width: 720px) {
+  .cta-dock {
+    left: var(--spacing-16);
+    right: var(--spacing-16);
+    max-width: none;
+    transform: translateY(12px);
+    gap: var(--spacing-8);
+    padding-left: var(--spacing-16);
+  }
+  .cta-dock.is-visible { transform: translateY(0); }
+  .cta-dock__label { display: none; }
+  .cta-dock .btn { flex: 1; }
+}
+
 /* ---------- Footer ---------- */
 .site-footer {
   background: var(--surface-dark-section);
